@@ -1,23 +1,34 @@
-Snowflake meredith;
+Snowflake [] meredith;
+
 void setup()
-{
-  size(500,500);
-  meredith= new Snowflake();
+{ background(0);
+  size(300,300);
+  meredith= new Snowflake[150];
+  for (int i =0; i<150;i++)
+  {
+    meredith[i]= new Snowflake();
+  }
+  // fill(100);
+  // rect(250,400,150,100);
 }
 void draw()
-{
-  meredith.erase();
-  meredith.lookDown();
-  meredith.move();
-  meredith.wrap();
-  meredith.show();
+{ for (int i =0; i<150;i++) {
+  meredith[i].erase();
+  meredith[i].lookDown();
+  meredith[i].move();
+  meredith[i].wrap();
+  meredith[i].show();
+  frameRate(20);
+}
   
 }
 void mouseDragged()
 {
+  stroke(255);
+  strokeWeight(5);
+  line(pmouseX, pmouseY, mouseX, mouseY);
+  strokeWeight(1);
   stroke(0);
-  strokeWeight(3);
-  line(pmouseX, pmouseX, mouseX, mouseY);
 }
 
 class Snowflake
@@ -25,41 +36,57 @@ class Snowflake
   int x;
   int y;
   boolean isMoving;
+  boolean onTop;
   Snowflake()
   {
-    x=(int)(Math.random()*501);
-    y=(int)(Math.random()*501);
+    x=(int)(Math.random()*301);
+    y=(int)((Math.random()*1)-300);
+    
+    if (onTop==true) {
+      y=0;
+    }
+    else {
+  
+    y=(int)(Math.random()*301);
+    }
+   
     isMoving=true;
   }
-  void show()
-  {
-    fill(255);
-    ellipse(x,y,5,5);
-  }
-  void lookDown()
-  {
-    if (y>=0 && y<=500 && get(x,y+4) !=color(0))
-    isMoving=false;
-
-      
-  }
-  void erase()
+   void erase()
   {
     fill(0);
-    ellipse(x,y,7,7);
+    ellipse(x,y,8,8);
   }
   void move()
   {
-    if (isMoving==true)
-    y++;
-
+    if (isMoving==true){
+      y++;
+    }
+    
+  }
+   void lookDown()
+  {
+    if (y>=0 && y<=290 && get(x,y+7) !=color(0))
+    isMoving=false;
+  else {
+    isMoving=true;
+  }
+    
+      
+  }
+  void show()
+  { 
+    fill(255);
+    ellipse(x,y,5,5);
   }
   void wrap()
   {
-    if (y>=500)
-    y=0;
-    x=(int)(Math.random()*501);
+    if (y>=300) {
+      y=0;
+      x=(int)(Math.random()*301);
+    }
   }
+
 }
 
 
