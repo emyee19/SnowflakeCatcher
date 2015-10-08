@@ -47,7 +47,7 @@ class Snowflake
     }
     else {
   
-    y=(int)(Math.random()*301);
+     y=(int)((Math.random()*500)-800);
     }
    
     isMoving=true;
